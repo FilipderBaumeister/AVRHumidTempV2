@@ -12,11 +12,11 @@ Author : nassnode */
 #include "mcp4725.h" // MCP4725 DAC Bibliothek
 
 // Einbinden von Standardbibliotheken
-#include <avr/io.h> // I/O Funktionen für AVR Mikrocontroller
-#include <util/delay.h> // Verzögerungsfunktionen
+#include <avr/io.h> // I/O Funktionen fÃ¼r AVR Mikrocontroller
+#include <util/delay.h> // VerzÃ¶gerungsfunktionen
 
 // Deklarieren und initialisieren ////////////////////////////////////////////////////////////////////////// 
-volatile uint8_t buttons = 0xff; volatile int i1=0,ledstatus,ledgruen = 0b01111111, ledgelb = 0b10111111, ledrot = 0b11011111; // Leds werden durch ein low geschaltet. Ledstatus ist der rückgabevariable. i1 ein übergabevariable 
+volatile uint8_t buttons = 0xff; volatile int i1=0,ledstatus,ledgruen = 0b01111111, ledgelb = 0b10111111, ledrot = 0b11011111; // Leds werden durch ein low geschaltet. Ledstatus ist der rÃ¼ckgabevariable. i1 ein Ã¼bergabevariable 
 volatile double adctemp= 0.0, adchumid =0.0;
 int abfrage1 = 0;
 
@@ -35,14 +35,14 @@ int checkhumidandtemp(double x, double y) // Abfrage der Humid und Temperatur
 {
 if( abfrage1 == 0)
 {
-	if(((x >= 20)&&(x<= 22))&&((y>= 40)&&(y<= 60))) // Abfrage für den optimalen Bereich
+	if(((x >= 20)&&(x<= 22))&&((y>= 40)&&(y<= 60))) // Abfrage fÃ¼r den optimalen Bereich
 	{
 		PORTD &= ~(1 << PD6);
-		ledstatus = ledgruen; // led wird grün
+		ledstatus = ledgruen; // led wird grÃ¼n
 	}
 
 
-	else if ((x<16)||(y<30)||(x>26)||(y>70)) // Abfrage für den roten Bereich und den überschritt in den roten bereich durch abfrage  ledstatus
+	else if ((x<16)||(y<30)||(x>26)||(y>70)) // Abfrage fÃ¼r den roten Bereich und den Ã¼berschritt in den roten bereich durch abfrage  ledstatus
 	{
 		ledstatus = ledrot & 0b11110111;// led wird rot
 		PORTD |= (1 << PD6);
@@ -51,22 +51,22 @@ if( abfrage1 == 0)
 	else
 	{
 		PORTD &= ~(1 << PD6);
-		ledstatus= ledgelb; // wen nichts stimmt soll die led rot werden überprüfen bzw. Erschuetterung ist
+		ledstatus= ledgelb; // wen nichts stimmt soll die led rot werden Ã¼berprÃ¼fen bzw. Erschuetterung ist
 		
 	}
-	return ledstatus; // rückgabewert
+	return ledstatus; // rÃ¼ckgabewert
 }
 else
 {
 	
-	if(((x >= 40)&&(x<= 44))&&((y>= 10)&&(y<= 30))) // Abfrage für den optimalen Bereich
+	if(((x >= 40)&&(x<= 44))&&((y>= 10)&&(y<= 30))) // Abfrage fÃ¼r den optimalen Bereich
 	{
 		PORTD &= ~(1 << PD6);
-		ledstatus = ledgruen; // led wird grün
+		ledstatus = ledgruen; // led wird grÃ¼n
 	}
 
 
-	else if ((x<35)||(y<0)||(x>49)||(y>40)) // Abfrage für den roten Bereich und den überschritt in den roten bereich durch abfrage  ledstatus
+	else if ((x<35)||(y<0)||(x>49)||(y>40)) // Abfrage fÃ¼r den roten Bereich und den Ã¼berschritt in den roten bereich durch abfrage  ledstatus
 	{
 		
 		ledstatus = ledrot & 0b11110111; // led wird rot
@@ -76,10 +76,10 @@ else
 	else
 	{
 		PORTD &= ~(1 << PD6);
-		ledstatus= ledgelb; // wen nichts stimmt soll die led rot werden überprüfen bzw. Erschuetterung ist
+		ledstatus= ledgelb; // wen nichts stimmt soll die led rot werden Ã¼berprÃ¼fen bzw. Erschuetterung ist
 		
 	}
-	return ledstatus; // rückgabewert
+	return ledstatus; // rÃ¼ckgabewert
 	
 }
 }
@@ -171,7 +171,7 @@ void abfrage()
 			{
 				einlesentempandhumid();
 				int i14 = checkhumidandtemp(adctemp,adchumid);
-				i14 = i14 & 0b1111101;
+				i14 = i14 & 0b11111101;
 				pcf8574_set_outputs(0x21,i14);
 				abfrage1 = 1;
 				displayData();
@@ -212,7 +212,7 @@ DDRD |= PD7;
 
 DDRD |= (1 << PD6);
 
-// Setze PD6 standardmäßig auf LOW
+// Setze PD6 standardmÃ¤ÃŸig auf LOW
 PORTD &= ~(1 << PD6);
 
 adc_init(); // Analog digital COnverter initialiseren
