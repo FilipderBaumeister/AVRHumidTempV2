@@ -1,6 +1,6 @@
 # AVRHumidTempV2
 
-Neue Programmänderungen vorgenommen 
+Programmänderungen vorgenommen 
 
 ## Einbinden der Libarys
 
